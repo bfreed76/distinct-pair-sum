@@ -1,46 +1,66 @@
 function distinctPairSum(arr, k) {
-  const newArr = [];
+  const newObj = {};
 
   if (arr.length < 2) {
-    return newArr;
+    return [];
   }
 
   for (i = 0; i < arr.length; i++) {
     let current = arr[i]
     let next = arr[i+1]
 
-    console.log("cur", current, "nex", next, "newArr", newArr)
-
     if (current + next === k) {
-      newArr.push(current, next) 
+      newObj[current] = [current, next]
       i++
     }
 
   }
-
-  // let summed = [arr[i], arr[i + 1]]
-  // summed === k ? newArr.push(summed) : null;
-  // console.log(arr[i], "sec", arr[i + 1], "sum", summed);
   
-  return newArr;
+  return Object.values(newObj);
 }
 
 if (require.main === module) {
   // add your own tests in here
   console.log("Expecting: [[1, 1], [2, 0]]");
-  console.log("=>", distinctPairSum([0, 1, 1, 2, 0, 1, 1], 2));
+  console.log(distinctPairSum([0, 1, 1, 2, 0, 1, 1], 2));
 
   console.log("");
 
   console.log("Expecting: [[2, 8]]");
-  console.log("=>", distinctPairSum([3, 4, 2, 1, 5, 2, 8, 2], 10));
+  console.log(distinctPairSum([3, 4, 2, 1, 5, 2, 8, 2], 10));
+
+  console.log("");
+
+  console.log("Expecting: []");
+  console.log(distinctPairSum([3, 4, 2, 1, 5, 2, 8, 2], 100));
+
+  console.log("");
+
+  console.log("Expecting: []");
+  console.log(distinctPairSum([], 100));
+
+  console.log("");
+
+  console.log("Expecting: [[59, 41]]");
+  console.log(distinctPairSum([59, 41], 100));
+
+  console.log("");
+
+  console.log("Expecting: []");
+  console.log(distinctPairSum([59], 100));
+
+  console.log("");
+
+  console.log("Expecting: [[0, 0], [10, -10], [3, -3]]");
+  console.log(distinctPairSum([1, 0, 0, 10, -10, 5, 4, 3, -3, -3], 0));
 }
 
 module.exports = distinctPairSum;
 
-// Iterate through array if array is not empty.
-// Add each pair of numbers starting from first and second elements.
-// If the sum of the numbers equals k, slice them from arr and
-// push that set of numbers into new array. OR push them into new array and 
-// increment an additional time so that the same number isn't counted twice.
-// Finally concat and return new array.
+// Create newObj to get an array of arrays as return object type.
+// If arr has less than 2 elements, return an empty array.
+// Loop through array, incrementing once each loop. Assign variables to
+// current and next elements. If current and next equal k, then add
+// key (current, or whatever but must be unique) and value ([current, next]) pair.
+// Then, to return an arr of arrays, return Object.values of newObj. This will
+// return only the values of newObj, which are arrays of distinct pairs.
