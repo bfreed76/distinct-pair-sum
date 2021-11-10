@@ -1,5 +1,28 @@
 function distinctPairSum(arr, k) {
-  // type your code here
+  const newArr = [];
+
+  if (arr.length < 2) {
+    return newArr;
+  }
+
+  for (i = 0; i < arr.length; i++) {
+    let current = arr[i]
+    let next = arr[i+1]
+
+    console.log("cur", current, "nex", next, "newArr", newArr)
+
+    if (current + next === k) {
+      newArr.push(current, next) 
+      i++
+    }
+
+  }
+
+  // let summed = [arr[i], arr[i + 1]]
+  // summed === k ? newArr.push(summed) : null;
+  // console.log(arr[i], "sec", arr[i + 1], "sum", summed);
+  
+  return newArr;
 }
 
 if (require.main === module) {
@@ -15,5 +38,9 @@ if (require.main === module) {
 
 module.exports = distinctPairSum;
 
-// Please add your pseudocode to this file
-// And a written explanation of your solution
+// Iterate through array if array is not empty.
+// Add each pair of numbers starting from first and second elements.
+// If the sum of the numbers equals k, slice them from arr and
+// push that set of numbers into new array. OR push them into new array and 
+// increment an additional time so that the same number isn't counted twice.
+// Finally concat and return new array.
